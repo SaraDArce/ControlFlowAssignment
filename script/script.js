@@ -64,3 +64,20 @@ console.log(
 console.log(
   "Radius of expanded garden: " + expandedRadius.toFixed(2) + " meters."
 );
+
+// Part 3: Error handling if space required exceeds available space
+function startWithHundredPlants() {
+  try {
+    const spaceRequired = 100 * minSpacePerPlant;
+    if (spaceRequired > maxCapacity) {
+      throw new Error("Insufficient space to accommodate the plants.");
+    } else {
+      console.log("\nStarting with 100 plants in the original garden.");
+      console.log(makeDecisions(0)); // Making decisions for the current plant count
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+startWithHundredPlants();
