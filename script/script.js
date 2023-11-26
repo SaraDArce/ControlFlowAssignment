@@ -1,0 +1,100 @@
+const PI = 3.1415;
+const radius = 5;
+const maxCapacity = PI * radius * radius;
+const minSpacePerPlant = 0.8;
+const startingPlantCount = 20;
+
+// Function to predict plant growth after a specific number of weeks
+function predictPlantGrowth(weeks) {
+  let predictedCount = startingPlantCount;
+
+  if (weeks >= 1) {
+    predictedCount *= 2; // For 1 week
+  }
+  if (weeks >= 2) {
+    predictedCount *= 2; // For 2 weeks
+  }
+  if (weeks >= 3) {
+    predictedCount *= 2; // For 3 weeks
+    // Add more conditions for additional weeks if needed
+  }
+
+  return predictedCount;
+}
+
+// Function to make decisions based on plant count after given weeks
+function makeDecisions(weeks) {
+  const predictedCount = predictPlantGrowth(weeks);
+  const percentage = (predictedCount / maxCapacity) * 100;
+
+  if (percentage > 80) {
+    return "Prune the plants.";
+  } else if (percentage >= 50 && percentage <= 80) {
+    return "Monitor the plant growth.";
+  } else {
+    return "Plant more plants if necessary.";
+  }
+}
+
+// Results for 1, 2, and 3 weeks of growth
+console.log("Week 1: " + makeDecisions(1));
+console.log("Week 2: " + makeDecisions(2));
+console.log("Week 3: " + makeDecisions(3));
+
+// Function to predict plant growth after a specific number of weeks using conditionals
+function predictPlantGrowth(weeks) {
+  let predictedCount = startingPlantCount;
+  if (weeks >= 1) {
+    predictedCount *= 2; // For 1 week
+  }
+  if (weeks >= 2) {
+    predictedCount *= 2; // For 2 weeks
+  }
+  if (weeks >= 3) {
+    predictedCount *= 2; // For 3 weeks
+    // Add more conditions for additional weeks if needed
+  }
+  return predictedCount;
+}
+
+// Function to calculate additional space required for a certain plant count over weeks
+function calculateAdditionalSpaceForPlants(plants, weeks) {
+  const predictedCount = predictPlantGrowth(weeks);
+  const additionalPlants = plants - predictedCount;
+  const additionalSpaceRequired = additionalPlants * minSpacePerPlant;
+  return additionalSpaceRequired;
+}
+
+// Calculate additional space required for 100 plants over 10 weeks without pruning
+const plantsAt10Weeks = predictPlantGrowth(10);
+const additionalSpaceFor100Plants = calculateAdditionalSpaceForPlants(100, 10);
+const additionalSpaceRequired =
+  additionalSpaceFor100Plants - (100 - plantsAt10Weeks) * minSpacePerPlant;
+const expandedMaxCapacity = maxCapacity + additionalSpaceRequired;
+const expandedRadius = Math.sqrt(expandedMaxCapacity / PI);
+
+console.log(
+  "\nAdditional space required after 10 weeks for 100 plants without pruning: " +
+    additionalSpaceRequired.toFixed(2) +
+    " square meters."
+);
+console.log(
+  "Radius of the expanded garden: " + expandedRadius.toFixed(2) + " meters."
+);
+
+// Part 3: Error handling if space required exceeds available space
+function startWithHundredPlants() {
+  try {
+    const spaceRequired = 100 * minSpacePerPlant;
+    if (spaceRequired > maxCapacity) {
+      throw new Error("Insufficient space to accommodate the plants.");
+    } else {
+      console.log("\nStarting with 100 plants in the original garden.");
+      console.log(makeDecisions(0)); // Making decisions for the current plant count
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+startWithHundredPlants();
