@@ -39,3 +39,28 @@ function makeDecisions(weeks) {
 console.log("Week 1: " + makeDecisions(1));
 console.log("Week 2: " + makeDecisions(2));
 console.log("Week 3: " + makeDecisions(3));
+
+// Function to calculate additional space requirements over weeks
+function calculateAdditionalSpaceForPlants(plants, weeks) {
+  const predictedCount = predictPlantGrowth(weeks);
+  const additionalPlants = plants - predictedCount;
+  const additionalSpaceRequired = additionalPlants * minSpacePerPlant;
+  return additionalSpaceRequired;
+}
+
+// Calculate additional space required for 100 plants over 10 weeks without pruning
+const plantsAt10Weeks = predictPlantGrowth(10);
+const additionalSpaceFor100Plants = calculateAdditionalSpaceForPlants(100, 10);
+const additionalSpaceRequired =
+  additionalSpaceFor100Plants - (100 - plantsAt10Weeks) * minSpacePerPlant;
+const expandedMaxCapacity = maxCapacity + additionalSpaceRequired;
+const expandedRadius = Math.sqrt(expandedMaxCapacity / PI);
+
+console.log(
+  "\nAdditional space required after 10 weeks for 100 plants without pruning: " +
+    additionalSpaceRequired.toFixed(2) +
+    " square meters."
+);
+console.log(
+  "Radius of expanded garden: " + expandedRadius.toFixed(2) + " meters."
+);
